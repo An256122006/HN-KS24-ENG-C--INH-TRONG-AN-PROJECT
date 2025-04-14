@@ -136,7 +136,12 @@
     background-color: #F1F2F4;
     margin-top: 20px;
 }
-
+.iconrow{
+    display: flex;
+}
+.icon{
+    padding-right: 40px;
+}
 #todohead {
     width: 100%;
     display: flex;
