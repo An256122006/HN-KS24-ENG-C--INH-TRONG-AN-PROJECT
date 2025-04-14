@@ -1,14 +1,8 @@
 let arr = JSON.parse(localStorage.getItem("arrlist"));
 let addlist = document.getElementById("upyourboards");
 let titleboard = document.getElementById("titleboard");
-let bodytodo = document.getElementById("bodytodo");
-let todo = document.getElementById("todo");
 let another = document.getElementById("another");
-let inproress = document.getElementById("inproress");
-let bodyinproress = document.getElementById("bodyin");
 let bodyanother = document.getElementById("bodyanother");
-let addtodo = document.getElementById("add-todo");
-let addinproress = document.getElementById("add-inproress");
 let addanother = document.getElementById("add-another");
 let script = document.getElementById("script");
 let statuss = document.getElementById("status");
@@ -21,19 +15,8 @@ let cancel = document.getElementById("cancel");
 let savebutton = document.getElementById("save-button");
 let inputboard = document.getElementById("input-board");
 let position = document.getElementById("position");
-let moretodo = document.getElementById("more-todo");
-let morein = document.getElementById("more-in");
-let inputtodo = document.getElementById("input-todo");
 let moreanother = document.getElementById("more-another");
-let fottertodo = document.getElementById("fottertodo");
-let savetodo = document.getElementById("savetodo");
-let textscript = document.getElementById("textscript");
 let inputbox = document.getElementById("input-box");
-let footerin = document.getElementById("fotterin");
-let savein = document.getElementById('savein');
-let closein = document.getElementById("closein");
-let inputin = document.getElementById("input-in");
-let bodyin = document.getElementById("bodyin");
 let inputanother = document.getElementById("input-another");
 let saveanother = document.getElementById("save-another");
 let cancelanother = document.getElementById('cancel-another');
@@ -115,36 +98,14 @@ function addbody(id) {
 function renderboard(id) {
     let i = arr[0].board.findIndex(element => element.id == id);
     input.style.display = "flex";
-    todo.style.display = "block";
-    inproress.style.display = "block";
     another.style.display = "block";
     input.style.backgroundColor = `${arr[0].board[i].color}`;
     customStatusContainer.style.display = "flex";
-    bodytodo.innerHTML = "";
-    bodyin.innerHTML = "";
-    rendertodo(i);
-    renderinprogress(i);
     renderstatus(i);
 
     document.querySelectorAll(".task-column").forEach(c => {
         c.style.display = "block";
     });
-    addtodo.onclick = function () {
-        moretodo.style.display = "block";
-        fottertodo.style.display = "none";
-        savetodo.onclick = function () {
-            pushtodo(i);
-            rendertodo(i);
-        }
-    }
-    addinproress.onclick = function () {
-        morein.style.display = "block";
-        footerin.style.display = "none";
-        savein.onclick = function () {
-            pushinprogress(i);
-            renderinprogress(i);
-        }
-    }
     addanother.onclick = function () {
         moreanother.style.display = "block";
         fotteranother.style.display = "none";
@@ -185,60 +146,6 @@ cancel.onclick = function () {
     createtitle.style.display = "none"
     document.getElementById("date-container").style.display = "none";
 }
-function repair(i, id) {
-    let index = arr[0].board[i].status.findIndex(element => element.name == "todo");
-    let index2 = arr[0].board[i].status[index].list.findIndex(element => element.id == id);
-    inputboard.innerHTML = arr[0].board[i].name;
-    textscript.value = arr[0].board[i].status[index].list[index2].name;
-    statuss.innerHTML = "";
-    arr[0].board[i].status.forEach(status => {
-        statuss.innerHTML += `<option value="${status.name}" ${status.name === "todo" ? "selected" : ""} style="display: none;">${status.name}</option>`;
-    });
-    addboard(i, "todo");
-    inputbox.value = "todo";
-    inputbox.onchange = function () {
-        addboard(i, inputbox.value);
-    }
-    repairvalue(i, index2, index);
-    script.style.display = "block";
-    document.body.classList.add("dark-overlay");
-    repairtodovalue(i, index2, index);
-    repairelement(i, index2, index);
-    createlabelblock(i, index, index2);
-    labelbtn.onclick = function () {
-        renderlable(i, index, index2);
-        createtitle.style.display = "block";
-    }
-    date(i, index, index2);
-}
-
-function closetodo() {
-    moretodo.style.display = "none";
-    fottertodo.style.display = "flex";
-}
-function rendertodo(i) {
-    let index = arr[0].board[i].status.findIndex(element => element.name == "todo");
-    inputtodo.value = "";
-    bodytodo.innerHTML = "";
-    arr[0].board[i].status[index].list.forEach(element => {
-        bodytodo.innerHTML += `
-        <div class="rowtodo" onclick="repair(${i},${element.id})"> <div><input type="checkbox" class="checkbox" ${element.checked ? "checked" : ""} onclick="check(${i},${index},${element.id}, this)"></div>
-    <div>${element.name}</div></div>
-        `
-    });
-}
-function pushtodo(i) {
-    let index = arr[0].board[i].status.findIndex(element => element.name == "todo");
-    let inputvaluetodo = inputtodo.value;
-    if (!inputvaluetodo) return;
-    arr[0].board[i].status[index].list.push({
-        id: Math.floor(Math.random() * 1000) + 1,
-        name: inputvaluetodo,
-        status: "todo",
-        title: [],
-    });
-    save();
-}
 function addboard(i, statusName) {
     let statusIndex = arr[0].board[i].status.findIndex(element => element.name == statusName);
     let listLength = arr[0].board[i].status[statusIndex].list.length;
@@ -248,82 +155,15 @@ function addboard(i, statusName) {
         position.innerHTML += `<option value="${j}">${j}</option>`;
     }
 }
-closein.onclick = function () {
-    morein.style.display = "none";
-    footerin.style.display = "flex";
-}
-function pushinprogress(i) {
-    let index = arr[0].board[i].status.findIndex(element => element.name == "inprogress");
-    let inputvaluetin = inputin.value;
-    if (!inputvaluetin) return;
-    arr[0].board[i].status[index].list.push({
-        id: Math.floor(Math.random() * 1000) + 1,
-        name: inputvaluetin,
-        status: "inprogress",
-        title: [],
-    });
-    save();
-}
-function renderinprogress(i) {
-    let index = arr[0].board[i].status.findIndex(element => element.name == "inprogress");
-    inputin.value = "";
-    bodyin.innerHTML = "";
-    arr[0].board[i].status[index].list.forEach(element => {
-        bodyin.innerHTML += `
-        <div class="rowtodo" onclick="repairin(${i},${element.id})">
-         <div><input type="checkbox" class="checkbox" ${element.checked ? "checked" : ""} onclick="check(${i},${index},${element.id}, this)"></div>
-         <div>${element.name}</div>
-        </div>`;
-    });
-}
-function repairin(i, id) {
-    let index = arr[0].board[i].status.findIndex(element => element.name == "inprogress");
-    let index2 = arr[0].board[i].status[index].list.findIndex(element => element.id == id);
-    inputboard.innerHTML = arr[0].board[i].name;
-    textscript.value = arr[0].board[i].status[index].list[index2].name;
-    statuss.innerHTML = "";
-    arr[0].board[i].status.forEach(status => {
-        statuss.innerHTML += `<option value="${status.name}" ${status.name === "inprogress" ? "selected" : ""} style="display: none;">${status.name}</option>`;
-    });
-    addboard(i, "inprogress");
-    inputbox.value = "inprogress";
-    inputbox.onchange = function () {
-        addboard(i, inputbox.value);
-    }
-    script.style.display = "block";
-    document.body.classList.add("dark-overlay");
-    repairvalue(i, index2, index);
-    repairelement(i, index2, index);
-    createlabelblock(i, index, index2);
-    labelbtn.onclick = function () {
-        renderlable(i, index, index2);
-        createtitle.style.display = "block";
-    }
-    date(i, index, index2);
-}
 cancelanother.onclick = function () {
     fotteranother.style.display = "block";
     moreanother.style.display = "none";
 }
-function pushanother(i) {
-    let inputvaluetanother = inputanother.value;
-    if (!inputvaluetanother) return;
-    arr[0].board[i].status.push({
-        id: Math.floor(Math.random() * 1000) + 1,
-        name: inputvaluetanother,
-        list: [],
-        check: false,
-    });
-    inputanother.value = "";
-    save();
-}
-
 function renderstatus(i) {
     const customStatusContainer = document.getElementById("status-columns");
     customStatusContainer.innerHTML = "";
 
     arr[0].board[i].status.forEach((status, statusIndex) => {
-        if (status.name !== "todo" && status.name !== "inprogress") {
             const statusId = status.id;
             const taskList = status.list;
 
@@ -365,7 +205,6 @@ function renderstatus(i) {
             });
 
             customStatusContainer.appendChild(column);
-        }
     });
 }
 
@@ -380,9 +219,6 @@ function repairanother(id) {
 
     const statusList = arr[0].board[boardIndex].status;
     let statusIndex = statusList.findIndex(status => status.id === id);
-    if (statusIndex === -1 || statusIndex < 2) return;
-
-    statusIndex = statusIndex - 2;
     allColumns.forEach((column, index) => {
         const inputArea = column.querySelector('.task-input-area');
         if (index === statusIndex) {
@@ -428,7 +264,7 @@ function savecolum(i, id) {
     const statusIndex = arr[0].board[i].status.findIndex(status => status.id === id);
     if (statusIndex === -1) return;
     const allColumns = document.querySelectorAll('.task-column');
-    const column = allColumns[statusIndex - 2];
+    const column = allColumns[statusIndex];
     const input = column.querySelector('.task-input');
     const value = input.value.trim();
     if (!value) return;
@@ -445,12 +281,24 @@ function savecolum(i, id) {
     renderSingleColumn(i, id);
     closeTaskInput();
 }
+function pushanother(i) {
+    let inputvaluetanother = inputanother.value;
+    if (!inputvaluetanother) return;
+    arr[0].board[i].status.push({
+        id: Math.floor(Math.random() * 1000) + 1,
+        name: inputvaluetanother,
+        list: [],
+        check: false,
+    });
+    inputanother.value = "";
+    save();
+}
 function renderSingleColumn(i, id) {
     const statusIndex = arr[0].board[i].status.findIndex(status => status.id === id);
     const status = arr[0].board[i].status[statusIndex];
 
     const allColumns = document.querySelectorAll('.task-column');
-    const column = allColumns[statusIndex - 2];
+    const column = allColumns[statusIndex];
     const taskBody = column.querySelector('.task-body');
     taskBody.innerHTML = "";
     status.list.forEach((task, index) => {
@@ -552,42 +400,6 @@ function repairvalue(i, id, index) {
         });
     };
 }
-function repairtodovalue(i, id, index) {
-    savebutton.onclick = function () {
-        let text = textscript.value;
-        arr[0].board[i].status[index].list[id].name = text;
-        rendertodo(i);
-        script.style.display = "none";
-        document.body.classList.remove("dark-overlay");
-        save();
-    };
-    deletelist.onclick = function () {
-        Swal.fire({
-            title: 'Bạn có chắc chắn muốn xoá công việc này?',
-            text: "Công việc sẽ bị xoá vĩnh viễn.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Xoá',
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                arr[0].board[i].status[index].list.splice(id, 1);
-                save();
-                script.style.display = "none";
-                document.body.classList.remove("dark-overlay");
-                rendertodo(i);
-
-                Swal.fire(
-                    'Đã xoá!',
-                    'Công việc đã được xoá.',
-                    'success'
-                );
-            }
-        });
-    };
-}
 
 function repairCustomValue(i, taskId, statusId) {
     savebutton.onclick = function () {
@@ -647,22 +459,6 @@ function exit() {
             window.location.href = "/project-root/pages/load.html";
         }
     });
-}
-function repairelement(i, id, index) {
-    more1.onclick = function () {
-        let textvalue = inputbox.value;
-        let position1 = position.value;
-        let index2 = arr[0].board[i].status.findIndex(element => element.name == textvalue);
-        const temparr = arr[0].board[i].status[index].list[id];
-        arr[0].board[i].status[index].list.splice(id, 1);
-        arr[0].board[i].status[index2].list.splice(position1, 0, temparr);
-        save();
-        rendertodo(i);
-        renderinprogress(i);
-        movecard.style.display = "none";
-        script.style.display = "none";
-        document.body.classList.remove("dark-overlay");
-    }
 }
 function repairelementUniversal(boardIndex, fromStatusIndex, taskIndex) {
     more1.onclick = function () {
