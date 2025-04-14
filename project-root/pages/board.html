@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project-root/css/board.css">
+    <link rel="icon" href="/project-root/addset/img/icon1.png" type="image/png">
+    <script src="https://kit.fontawesome.com/0c1f5dacbd.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.12/css/froala_editor.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.12/js/froala_editor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Trello-v2</title>
+</head>
+
+<body>
+    <div class="all">
+        <div id="head">
+            <div class="img"><img src="/project-root/addset/img/trello-logo-full.png.png" alt=""></div>
+            <div id="content">
+                <div class="list1">
+                    <p>Your workspaces</p>
+                    <div id="boardbtn"><i class="fa-solid fa-list"></i> Boards</div>
+                    <div><i class="fa-regular fa-star"></i> Starred Boards</div>
+                    <div id="close" onclick="exit()"><i class="fa-regular fa-rectangle-xmark"></i> Closed Boards</div>
+                </div>
+                <div id="list2">
+                    <div class="titleyourboard">
+                        <div>your boards</div>
+                        <button id="addyourboard">+</button>
+                    </div>
+                    <div id="upyourboards">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="body">
+            <div class="titlebody"></div>
+            <div id="titleboard"></div>
+            <div id="input">
+                <div id="todo">
+                    <div id="todohead" class="head-board">
+                        <div>Todo</div>
+                        <div id="icontodo" class="icon">
+                            <div><i class="fa-solid fa-arrow-right"></i><i class="fa-solid fa-arrow-left"></i></div>
+                            <div><i class="fa-solid fa-ellipsis"></i></div>
+                        </div>
+                    </div>
+                    <div id="bodytodo"></div>
+                    <div id="more-todo">
+                        <input type="text" id="input-todo">
+                        <div>
+                            <button class="save-button" id="savetodo">save</button>
+                            <button class="cancel-button" onclick="closetodo()">x</button>
+                        </div>
+                    </div>
+                    <div id="fottertodo" class="footer">
+                        <div id="add-todo">+ Add a card</div>
+                        <div><i class="fa-solid fa-credit-card"></i></div>
+                    </div>
+                </div>
+                <div id="inproress">
+                    <div id="inhead">
+                        <div>In-progress</div>
+                        <div id="intodo">
+                            <div><i class="fa-solid fa-arrow-right"></i><i class="fa-solid fa-arrow-left"></i></div>
+                            <div><i class="fa-solid fa-ellipsis"></i></div>
+                        </div>
+                    </div>
+                    <div id="bodyin"></div>
+                    <div id="more-in">
+                        <input type="text" id="input-in">
+                        <div>
+                            <button class="save-button" id="savein">save</button>
+                            <button class="cancel-button" id="closein">x</button>
+                        </div>
+                    </div>
+                    <div id="fotterin">
+                        <div id="add-inproress">+ Add a card</div>
+                        <div><i class="fa-solid fa-credit-card"></i></div>
+                    </div>
+                </div>
+                <div id="another">
+                    <div id="more-another">
+                        <input type="text" id="input-another">
+                        <div>
+                            <button class="save-button" id="save-another">save</button>
+                            <button class="cancel-button" id="cancel-another">x</button>
+                        </div>
+                    </div>
+                    <div id="fotteranother">
+                        <div id="add-another">+ Add another list</div>
+                    </div>
+                </div>
+                <div id="status-columns"></div>
+            </div>
+        </div>
+    </div>
+    <div id="script">
+        <div class="headscript">
+            <div class="iconscript"><i class="fa-solid fa-o"></i></div>
+            <div>
+                <input class="textscript" id="textscript">
+                <div class="inputlist">in list <select id="status">
+                    </select></div>
+            </div>
+        </div>
+        <div class="bodyscript">
+            <div id="headbodyscript">
+                <div class="iconscript"><i class="fa-solid fa-bars-staggered"></i></div>
+                <div>
+                    <div class="textscript">Description</div>
+                    <div id="inputscript"></div>
+                    <div class="button-container" id="bodyscript3">
+                        <button class="save-button" id="save-button">save</button>
+                        <button class="cancel-button" id="cancel">cancel</button>
+                    </div>
+                </div>
+                <div id="bodyscript2">
+                    <div class="label-button" id="labelbtn"><button><i class="fa-solid fa-tag"></i> label</button></div>
+                    <div class="Dates-button" id="datebtn"><button><i class="fa-solid fa-clock"></i> Dates</button></div>
+                    <div class="Delete-button" id="deleteslist"><button><i class="fa-solid fa-eraser"></i>
+                            Deletes</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="move-card-container" id="move-card">
+        <div class="move-card-header">
+            <div>Move card</div>
+            <div class="close-btn" id="closecard">×</div>
+        </div>
+        <div>
+            <div class="label">Board</div>
+            <div class="input-board" id="input-board"></div>
+        </div>
+        <div class="input-move">
+            <div>
+                <div class="label">List</div>
+                <select class="input-box" id="input-box">
+                    <option value="inprogress">In-progress</option>
+                    <option value="todo">To-do</option>
+                </select>
+            </div>
+
+            <div>
+                <div class="label">Position</div>
+                <select class="input-box2" id="position">
+                </select>
+            </div>
+        </div>
+        <button class="move-button" id="more1">Move</button>
+    </div>
+    <div class="move-create-label" id="create-label">
+        <div class="head-create-label">
+            <div>&lt;</div>
+            <div>create label</div>
+            <div class="close-btn" id="closeanother">×</div>
+        </div>
+        <div>
+            <div class="label">Title</div>
+            <input type="text" class="input-board" id="textcreatelable">
+        </div>
+        <div>
+            <div class="label">select color</div>
+            <div id="color"></div>
+            <hr>
+        </div>
+        <button class="move-button" id="btn-create">create</button>
+    </div>
+    <div class="date-container" id="date-container">
+        <div class="head-date" id="head-date">
+            <div>Dates</div>
+            <div class="close-btn" onclick="closedate()">×</div>
+        </div>
+        <div class="field">
+            <label for="start-date-checkbox">Start Date</label>
+            <div>
+                <input type="checkbox" id="checkbox-start-date">
+                <input type="date" disabled id="start-date">
+            </div>
+        </div>
+        <div class="field">
+            <label for="due-date-checkbox">Due Date</label>
+            <input type="checkbox" id="checkbox-due-date">
+            <input type="date" disabled id="due-date">
+            <input type="time" disabled id="end-time">
+        </div>
+        <div class="buttons">
+            <button class="save-button" id="savedate">Save</button>
+            <button class="cancel-button" id="removedate">Remove</button>
+        </div>
+    </div>
+    <div class="create-label" id="create-title">
+        <div class="head-lable">
+            <div>
+                Lable
+            </div>
+            <div  class="close-btn" onclick="exitcreate()">×</div>
+        </div>
+        <div>
+            <div>lable</div>
+            <div id="add-lable"></div>
+        </div>
+        <button id="create-titlebtn">Create a new label</button>
+    </div>
+    <div class="move-edit-label" id="Edit-lable">
+        <div class="head-create-label">
+            <div>&lt;</div>
+            <div>Edit label</div>
+            <div class="close-btn" id="closeanother1" onclick="closeedit()">×</div>
+        </div>
+        <div>
+            <div class="label">Title</div>
+            <input type="text" class="input-board2" id="textcreatelable2">
+        </div>
+        <div>
+            <div class="label">select color</div>
+            <div id="color2"></div>
+            <hr>
+        </div>
+        <div class="label-btn">
+            <button class="move-button" id="btn-save">save</button>
+            <button class="delete-btn" id="btn-delete">Delete</button>
+        </div>
+    </div>
+    <div class="filter-panel">
+        <div class="filter-header">
+          <h2>Filter</h2>
+          <button class="close-btn">&times;</button>
+        </div>
+      
+        <div class="filter-section">
+          <label class="filter-label">Keyword</label>
+          <input type="text" class="filter-input" placeholder="Enter a keyword..." / id="filter-input">
+          <small>Search cards</small>
+        </div>
+        <div class="filter-section">
+          <label class="filter-label">Card status</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox"> Marked as complete</label>
+            <label><input type="checkbox"> Not marked as complete</label>
+          </div>
+        </div>
+        <div class="filter-section">
+          <label class="filter-label">Due date</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox"> 🗓️ No dates</label>
+            <label><input type="checkbox"> <span class="icon overdue"></span> Overdue</label>
+            <label><input type="checkbox"> <span class="icon nextday"></span> Due in the next day</label>
+          </div>
+        </div>
+      
+        <div class="filter-section">
+          <label class="filter-label">Labels</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox"> <span class="icon label-icon"></span> No labels</label>
+            <label><input type="checkbox"><span class="label-color green"></span></label>
+            <label><input type="checkbox"><span class="label-color yellow"></span></label>
+            <label><input type="checkbox"><span class="label-color orange"></span></label>
+            <label class="select-labels">Select labels ▼</label>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <script src="/project-root/js/board.js"></script>
+</body>
+</html>
